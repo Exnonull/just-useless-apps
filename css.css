@@ -6,8 +6,8 @@
 	width:100%;height:100%;
 	
   color: #fff;
-  grid-template-columns: auto auto auto;  /* three columns */
-  grid-template-rows: auto auto auto; /* three rows  */
+  grid-template-columns: auto auto auto auto auto auto;  /* 6 columns */
+  grid-template-rows: auto auto auto auto auto auto; /* 6 rows  */
 }
 
 .grid-item {

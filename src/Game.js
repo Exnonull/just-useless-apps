@@ -42,9 +42,9 @@ function CheckWin (field, pos, lineSize) {
 }
 
 class Game {
-	size = {x: 3, y: 3}
-	lineSize = 3
-	players = 2
+	size = {x: 6, y: 6}
+	lineSize = 4
+	players = 3
 	
 	winner = 0
 	winCeils = []
