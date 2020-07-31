@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom'
 import App from './App'
 import Game from './Game'
 
-ReactDOM.render(<App />, document.getElementById('wrapper'));
+const size = {x:3, y:3};
+const players = 2;
+const lineSize = 3;
+
+ReactDOM.render(<App size={size}/>, document.getElementById('wrapper'));
 
 function startTheGame(){
-	const kek = new Game();//3x3, 3 strike, 2 players
+	const kek = new Game({size,lineSize,players});//3x3, 3 strike, 2 players
 	kek.dom = document.getElementsByClassName('grid-item');
 	Array.from(kek.dom).forEach((ge, id) => {
 		ge.onclick = e => {

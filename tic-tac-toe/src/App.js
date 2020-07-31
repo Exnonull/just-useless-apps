@@ -2,9 +2,9 @@ import React from 'react'
 import Area from './Area'
 import Winner from './Winner'
 
-const App = () => (
+const App = (props) => (
 	<div>
-		<Area />
+		<Area size={props.size}/>
 		<Winner />
 	</div>
 )
