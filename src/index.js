@@ -17,7 +17,7 @@ function startTheGame(){
 				console.log(kek.winner);
 				if (kek.winner < 0) kek.winner = 0;
 				document.getElementById('winner').style.display='block';
-				document.getElementById('winnerName').innerHTML = ['nobody','blue','red','yellow','green'][kek.winner];
+				document.getElementById('winnerName').innerHTML = ['nobody','red','blue','green','yellow'][kek.winner];
 				document.getElementById('winner').onclick = e => {
 					document.onclick=null;
 					document.getElementById('winner').style.display='none';
@@ -27,7 +27,7 @@ function startTheGame(){
 					e.preventDefault();
 				}
 			}
-			if (status) ge.style.backgroundColor = ['gray', 'blue', 'red', 'green', 'yellow'][kek.field[id]];
+			if (status) ge.style.backgroundColor = ['gray', 'red', 'blue', 'green', 'yellow'][kek.field[id]];
 			e.preventDefault();
 		};
 	})
