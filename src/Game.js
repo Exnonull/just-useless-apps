@@ -60,6 +60,11 @@ class Game {
 		this.field.set = function (pos, id) {
 			this[pos.x+pos.y*this.size.x] = id
 		};
+		this.field.count = function (id) {
+			let counter = 0;
+			for (let i = 0; i < this.length; i++) counter += this[i]==id;
+			return counter;
+		};
 	}
 	
 	set (pos = {x: 0, y: 0}) {
@@ -67,6 +72,7 @@ class Game {
 		
 		this.field.set(pos, this.playerTurn);
 		if (CheckWin(this.field, pos, this.lineSize)) this.winner = this.playerTurn;
+		if (this.field.count(0)==0) this.winner = -1;
 		
 		this.playerTurn++; 
 		if (this.playerTurn > this.players) this.playerTurn = 1;

@@ -15,8 +15,9 @@ function startTheGame(){
 			const status = kek.setId(id);
 			if (kek.winner) {
 				console.log(kek.winner);
+				if (kek.winner < 0) kek.winner = 0;
 				document.getElementById('winner').style.display='block';
-				document.getElementById('winnerName').innerHTML = ['gray','blue','red','yellow','green'][kek.winner];
+				document.getElementById('winnerName').innerHTML = ['nobody','blue','red','yellow','green'][kek.winner];
 				document.getElementById('winner').onclick = e => {
 					document.onclick=null;
 					document.getElementById('winner').style.display='none';
