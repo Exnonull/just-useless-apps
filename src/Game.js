@@ -11,29 +11,29 @@ function CheckWin (field, pos, lineSize) {
 		else break;
 	}
 	
-	for (let y = pos.y; y >= 0; y -= field.size.x) {
+	for (let y = pos.y*field.size.x; y >= 0; y -= field.size.x) {
 		if (field[pos.x+y] == playerId) height++;
 		else break;
 	}
-	for (let y = pos.y; y < field.length; y += field.size.x) {
+	for (let y = pos.y*field.size.x; y < field.length; y += field.size.x) {
 		if (field[pos.x+y] == playerId) height++;
 		else break;
 	}
 	
-	for (let y = pos.y, x = pos.x; y < field.length && x >= 0; y += field.size.x, x--) {
+	for (let y = pos.y*field.size.x, x = pos.x; y < field.length && x >= 0; y += field.size.x, x--) {
 		if (field[x+y] == playerId) diag0110++;
 		else break;
 	}
-	for (let y = pos.y, x = pos.x; y >= 0 && x < field.size.x; y -= field.size.x, x++) {
+	for (let y = pos.y*field.size.x, x = pos.x; y >= 0 && x < field.size.x; y -= field.size.x, x++) {
 		if (field[x+y] == playerId) diag0110++;
 		else break;
 	}
 	
-	for (let y = pos.y, x = pos.x; y < field.length && x < field.size.x; y += field.size.x, x++) {
+	for (let y = pos.y*field.size.x, x = pos.x; y < field.length && x < field.size.x; y += field.size.x, x++) {
 		if (field[x+y] == playerId) diag0011++;
 		else break;
 	}
-	for (let y = pos.y, x = pos.x; y >= 0 && x >= 0; y -= field.size.x, x--) {
+	for (let y = pos.y*field.size.x, x = pos.x; y >= 0 && x >= 0; y -= field.size.x, x--) {
 		if (field[x+y] == playerId) diag0011++;
 		else break;
 	}
@@ -46,6 +46,9 @@ class Game {
 	lineSize = 3
 	players = 2
 	
+	winner = 0
+	winCeils = []
+	
 	playerTurn = 1
 	
 	constructor (info) {
@@ -56,16 +59,26 @@ class Game {
 		this.field.get = function (pos) {return this[pos.x+pos.y*this.size.x]};
 		this.field.set = function (pos, id) {
 			this[pos.x+pos.y*this.size.x] = id
-			return CheckWin(this, pos, this.lineSize);
 		};
 	}
 	
 	set (pos = {x: 0, y: 0}) {
-		if (this.field.get(pos)) return null;
-		const result = this.field.set(pos, this.playerTurn);
+		if (this.field.get(pos)) return false;
+		
+		this.field.set(pos, this.playerTurn);
+		if (CheckWin(this.field, pos, this.lineSize)) this.winner = this.playerTurn;
+		
 		this.playerTurn++; 
-		if (this.playerTurn > players) this.playerTurn = 1;
-		return result;
+		if (this.playerTurn > this.players) this.playerTurn = 1;
+		
+		return true;
+	}
+	
+	setId (id) {
+		return this.set({
+			x: id%this.field.size.x,
+			y: Math.trunc(id/this.field.size.x)
+		})
 	}
 	
 	get () {
